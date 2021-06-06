@@ -20,6 +20,7 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         loadCategories();
+        loadCustomers();
 
     }
 
@@ -45,7 +46,7 @@ public class Bootstrap implements CommandLineRunner {
         categoryRepository.save(fresh);
         categoryRepository.save(nuts);
 
-        System.out.println("data loaded = " + categoryRepository.count());
+        System.out.println("##data loaded = " + categoryRepository.count());
     }
 
     private void loadCustomers() {
@@ -62,7 +63,7 @@ public class Bootstrap implements CommandLineRunner {
 
         customerRepository.save(customer2);
 
-        System.out.println("Customers loaded: "+ customerRepository.count());
+        System.out.println("##Customers loaded: "+ customerRepository.count());
     }
 
 }
