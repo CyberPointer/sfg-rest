@@ -11,4 +11,6 @@ public interface CategoryMapper {
 
     //@Mapping(source = "getId, target, "id)
     CategoryDTO categoryToCategoryDTO(Category category);
+
+    Category categoryDtoToCategory(CategoryDTO categoryDTO);
 }

@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class CategoryListDTO {
-    List<CategoryDTO> categories;
+    private List<CategoryDTO> categories;
 }

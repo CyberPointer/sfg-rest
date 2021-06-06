@@ -42,7 +42,9 @@ public class CustomerControllerTest extends TestCase {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+                .setControllerAdvice(RestResponseEntityExceptionHandler.class)
+                .build();
     }
 
     @Test
@@ -168,4 +170,5 @@ public class CustomerControllerTest extends TestCase {
 
         verify(customerService).deleteCustomerById(anyLong());
     }
+
 }
