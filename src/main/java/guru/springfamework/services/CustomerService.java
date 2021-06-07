@@ -1,11 +1,10 @@
 package guru.springfamework.services;
 
 import guru.springfamework.api.v1.model.CustomerDTO;
-
-import java.util.List;
+import guru.springfamework.api.v1.model.CustomerListDTO;
 
 public interface CustomerService {
-    List<CustomerDTO> getAllCustomers();
+    CustomerListDTO getAllCustomers();
 
     CustomerDTO getCustomerById(Long id);
 

@@ -1,6 +1,7 @@
 package guru.springfamework.controller;
 
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.api.v1.model.CustomerListDTO;
 import guru.springfamework.services.CustomerService;
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -14,7 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static guru.springfamework.controller.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.Matchers.equalTo;
@@ -56,7 +56,7 @@ public class CustomerControllerTest extends TestCase {
         CustomerDTO bob = new CustomerDTO();
         bob.setId(2L);
         bob.setFirstName("Bob");
-        List<CustomerDTO> customers = Arrays.asList(andrew, bob);
+        CustomerListDTO customers = new CustomerListDTO(Arrays.asList(andrew, bob));
 
         //when
         when(customerService.getAllCustomers()).thenReturn(customers);

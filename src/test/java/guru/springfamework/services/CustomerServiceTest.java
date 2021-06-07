@@ -2,6 +2,7 @@ package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.api.v1.model.CustomerListDTO;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 import junit.framework.TestCase;
@@ -51,8 +52,8 @@ public class CustomerServiceTest extends TestCase {
         when(customerRepository.findAll()).thenReturn(customers);
 
         //then
-        List<CustomerDTO> customerDTOS = customerService.getAllCustomers();
-        assertEquals(2, customerDTOS.size());
+        CustomerListDTO customerDTOS = customerService.getAllCustomers();
+        assertEquals(2, customerDTOS.getCustomers().size());
     }
 
     @Test

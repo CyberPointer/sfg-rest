@@ -2,12 +2,14 @@ package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.api.v1.model.CustomerListDTO;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     private CustomerMapper customerMapper;
@@ -18,8 +20,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
-        return customerRepository
+    public CustomerListDTO getAllCustomers() {
+        return new CustomerListDTO(customerRepository
                 .findAll()
                 .stream()
                 .map(customer ->
@@ -28,15 +30,20 @@ public class CustomerServiceImpl implements CustomerService {
                     customerDTO.setCustomerUrl("/api/v1/customers/" + customer.getId());
                     return customerDTO;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @Override
     public CustomerDTO getCustomerById(Long id) {
-        return customerMapper.customerToCustomerDTO(
+        return
                 customerRepository
-                        .findById(id)
-                        .orElseThrow(ResourceNotFoundException::new));
+                        .findById(id).map(customer -> {
+                            CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+                            customerDTO.setCustomerUrl("/api/v1/customers/" + customer.getId());
+                            return customerDTO;
+                        }
+                        )
+                        .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
