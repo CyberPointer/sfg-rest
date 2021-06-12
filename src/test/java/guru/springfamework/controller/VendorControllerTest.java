@@ -60,7 +60,8 @@ public class VendorControllerTest extends TestCase {
 
         //given
         mockMvc.perform(get(VendorController.BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vendors", hasSize(2)));
     }
@@ -77,7 +78,8 @@ public class VendorControllerTest extends TestCase {
 
         //given
         mockMvc.perform(get(VendorController.BASE_URL + "/1")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("amaz")));
     }
@@ -97,6 +99,7 @@ public class VendorControllerTest extends TestCase {
         //then
         mockMvc.perform(post(VendorController.BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendorDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", equalTo(newVendor.getName())))
@@ -118,6 +121,7 @@ public class VendorControllerTest extends TestCase {
         //then
         mockMvc.perform(put(VendorController.BASE_URL + "/1")
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("Fruit loops")))
@@ -139,6 +143,7 @@ public class VendorControllerTest extends TestCase {
         //then
         mockMvc.perform(patch(VendorController.BASE_URL + "/1")
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("Fruit loops")))
@@ -151,7 +156,8 @@ public class VendorControllerTest extends TestCase {
         //when
         //then
         mockMvc.perform(delete(VendorController.BASE_URL + "/1")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         verify(vendorService).deleteVendorById(anyLong());
